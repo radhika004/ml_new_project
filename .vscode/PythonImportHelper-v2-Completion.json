@@ -259,6 +259,22 @@
         "documentation": {}
     },
     {
+        "label": "ModelTrainerConfig",
+        "importPath": "src.components.model_trainer",
+        "description": "src.components.model_trainer",
+        "isExtraImport": true,
+        "detail": "src.components.model_trainer",
+        "documentation": {}
+    },
+    {
+        "label": "ModelTrainer",
+        "importPath": "src.components.model_trainer",
+        "description": "src.components.model_trainer",
+        "isExtraImport": true,
+        "detail": "src.components.model_trainer",
+        "documentation": {}
+    },
+    {
         "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
@@ -324,6 +340,14 @@
         "documentation": {}
     },
     {
+        "label": "evaluate_model",
+        "importPath": "src.utils",
+        "description": "src.utils",
+        "isExtraImport": true,
+        "detail": "src.utils",
+        "documentation": {}
+    },
+    {
         "label": "CatBoostRegressor",
         "importPath": "catboost",
         "description": "catboost",
@@ -361,6 +385,23 @@
         "description": "sklearn.linear_model",
         "isExtraImport": true,
         "detail": "sklearn.linear_model",
+        "documentation": {}
+    },
+    {
+        "label": "sklearn.metrics",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
+        "label": "r2_score",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
         "documentation": {}
     },
     {
@@ -20133,7 +20174,16 @@
         "kind": 6,
         "importPath": "src.components.model_trainer",
         "description": "src.components.model_trainer",
-        "peekOfCode": "class ModelTrainerConfig:\n  trained_model_file_path = os.path.join(\"artifact\",\"model.pkl\")\n  class ModelTrainer:\n    def __init__(self):\n      self.model_trainer_config = ModelTrainerConfig()\n    def initiate_model_trainer(self,train_array,test_array,preprocesor_path):\n      try:\n        logging.info(\"Split training and testing data\")\n        X_train,y_train,X_test,y_test=(\n          train_array[::-1],",
+        "peekOfCode": "class ModelTrainerConfig:\n    trained_model_file_path: str = os.path.join(\"artifact\", \"model.pkl\")\nclass ModelTrainer:\n    def __init__(self):\n        self.model_trainer_config = ModelTrainerConfig()\n    def initiate_model_trainer(self, train_array, test_array):\n        try:\n            logging.info(\"Splitting training and testing input data\")\n            X_train = train_array[:, :-1]\n            y_train = train_array[:, -1]",
+        "detail": "src.components.model_trainer",
+        "documentation": {}
+    },
+    {
+        "label": "ModelTrainer",
+        "kind": 6,
+        "importPath": "src.components.model_trainer",
+        "description": "src.components.model_trainer",
+        "peekOfCode": "class ModelTrainer:\n    def __init__(self):\n        self.model_trainer_config = ModelTrainerConfig()\n    def initiate_model_trainer(self, train_array, test_array):\n        try:\n            logging.info(\"Splitting training and testing input data\")\n            X_train = train_array[:, :-1]\n            y_train = train_array[:, -1]\n            X_test = test_array[:, :-1]\n            y_test = test_array[:, -1]",
         "detail": "src.components.model_trainer",
         "documentation": {}
     },
@@ -20187,7 +20237,16 @@
         "kind": 2,
         "importPath": "src.utils",
         "description": "src.utils",
-        "peekOfCode": "def save_object(file_path,obj):\n  try:\n    dir_path = os.path.dirname(file_path)\n    os.makedirs(dir_path,exist_ok = True)\n    with open(file_path,\"wb\") as file_obj:\n      dill.dump(obj,file_obj)\n  except Exception as e:\n    raise CustomException(e,sys)",
+        "peekOfCode": "def save_object(file_path,obj):\n  try:\n    dir_path = os.path.dirname(file_path)\n    os.makedirs(dir_path,exist_ok = True)\n    with open(file_path,\"wb\") as file_obj:\n      dill.dump(obj,file_obj)\n  except Exception as e:\n    raise CustomException(e,sys)\ndef evaluate_model(X_train,y_train,X_test,y_test,models):\n  try:",
+        "detail": "src.utils",
+        "documentation": {}
+    },
+    {
+        "label": "evaluate_model",
+        "kind": 2,
+        "importPath": "src.utils",
+        "description": "src.utils",
+        "peekOfCode": "def evaluate_model(X_train,y_train,X_test,y_test,models):\n  try:\n    report = {}\n    for i in range(len(list(models))):\n      model = list(models.values())[i]\n      model.fit(X_train,y_train)\n      y_train_pred = model.predict(X_train)\n      y_test_pred = model.predict(X_test)\n      train_model_score = r2_score(y_train,y_train_pred)\n      test_model_score =  r2_score(y_test,y_test_pred)",
         "detail": "src.utils",
         "documentation": {}
     },
