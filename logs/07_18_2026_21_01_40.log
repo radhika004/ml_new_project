@@ -1,0 +1,14 @@
+[2026-07-18 21:01:40,977] 162 numexpr.utils - INFO - NumExpr defaulting to 16 threads.
+[2026-07-18 21:01:42,639] 29 root - INFO - Enter the data ingestion method or component
+[2026-07-18 21:01:42,643] 32 root - INFO - Read the dataset as dataframe
+[2026-07-18 21:01:42,647] 38 root - INFO - Train test split initiated
+[2026-07-18 21:01:42,651] 43 root - INFO - ingestion of the data is completed
+[2026-07-18 21:01:42,677] 79 root - INFO - Read train and test data completed
+[2026-07-18 21:01:42,678] 80 root - INFO - Obtaining preprocessing object
+[2026-07-18 21:01:42,678] 59 root - INFO - Numerical columns standard scaling completed
+[2026-07-18 21:01:42,678] 60 root - INFO - Categorical columns encoding completed
+[2026-07-18 21:01:42,679] 96 root - INFO - Applying preprocessing object on training and testing dataframes
+[2026-07-18 21:01:42,689] 118 root - INFO - Saved preprocessing object
+[2026-07-18 21:01:42,691] 33 root - INFO - Splitting training and testing input data
+[2026-07-18 21:03:09,288] 114 root - INFO - Best model found: Linear Regression
+[2026-07-18 21:03:09,394] 130 root - INFO - R2 Score: 0.8795158595242263
