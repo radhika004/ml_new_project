@@ -178,6 +178,14 @@
         "documentation": {}
     },
     {
+        "label": "CustomException",
+        "importPath": "src.exception",
+        "description": "src.exception",
+        "isExtraImport": true,
+        "detail": "src.exception",
+        "documentation": {}
+    },
+    {
         "label": "logging",
         "importPath": "src.logger",
         "description": "src.logger",
@@ -212,6 +220,14 @@
     },
     {
         "label": "train_test_split",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "GridSearchCV",
         "importPath": "sklearn.model_selection",
         "description": "sklearn.model_selection",
         "isExtraImport": true,
@@ -324,6 +340,14 @@
         "documentation": {}
     },
     {
+        "label": "StandardScaler",
+        "importPath": "sklearn.preprocessing",
+        "description": "sklearn.preprocessing",
+        "isExtraImport": true,
+        "detail": "sklearn.preprocessing",
+        "documentation": {}
+    },
+    {
         "label": "save_object",
         "importPath": "src.utils",
         "description": "src.utils",
@@ -341,6 +365,14 @@
     },
     {
         "label": "evaluate_model",
+        "importPath": "src.utils",
+        "description": "src.utils",
+        "isExtraImport": true,
+        "detail": "src.utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_object",
         "importPath": "src.utils",
         "description": "src.utils",
         "isExtraImport": true,
@@ -20118,6 +20150,46 @@
         "documentation": {}
     },
     {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "CustomData",
+        "importPath": "src.pipeline.predict_pipeline",
+        "description": "src.pipeline.predict_pipeline",
+        "isExtraImport": true,
+        "detail": "src.pipeline.predict_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "PredictPipeline",
+        "importPath": "src.pipeline.predict_pipeline",
+        "description": "src.pipeline.predict_pipeline",
+        "isExtraImport": true,
+        "detail": "src.pipeline.predict_pipeline",
+        "documentation": {}
+    },
+    {
         "label": "find_packages",
         "importPath": "setuptools",
         "description": "setuptools",
@@ -20188,6 +20260,24 @@
         "documentation": {}
     },
     {
+        "label": "PredictPipeline",
+        "kind": 6,
+        "importPath": "src.pipeline.predict_pipeline",
+        "description": "src.pipeline.predict_pipeline",
+        "peekOfCode": "class PredictPipeline:\n  def __init__(self):\n    pass\n  def predict(self,features):\n    try:\n        model_path = 'artifact\\\\model.pkl'\n        preprocessor_path = 'artifact\\\\preprocessor.pkl'\n        model = load_object(file_path = model_path)\n        preprocessor = load_object(file_path = preprocessor)\n        data_scaled = preprocessor.transform(features)",
+        "detail": "src.pipeline.predict_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "CustomData",
+        "kind": 6,
+        "importPath": "src.pipeline.predict_pipeline",
+        "description": "src.pipeline.predict_pipeline",
+        "peekOfCode": "class CustomData:\n    def __init__(\n        self,\n        gender: str,\n        race_ethnicity: str,\n        parental_level_of_education,\n        lunch: str,\n        test_preparation_course: str,\n        reading_score: int,\n        writing_score: int",
+        "detail": "src.pipeline.predict_pipeline",
+        "documentation": {}
+    },
+    {
         "label": "CustomException",
         "kind": 6,
         "importPath": "src.exception",
@@ -20237,7 +20327,7 @@
         "kind": 2,
         "importPath": "src.utils",
         "description": "src.utils",
-        "peekOfCode": "def save_object(file_path,obj):\n  try:\n    dir_path = os.path.dirname(file_path)\n    os.makedirs(dir_path,exist_ok = True)\n    with open(file_path,\"wb\") as file_obj:\n      dill.dump(obj,file_obj)\n  except Exception as e:\n    raise CustomException(e,sys)\ndef evaluate_model(X_train,y_train,X_test,y_test,models):\n  try:",
+        "peekOfCode": "def save_object(file_path,obj):\n  try:\n    dir_path = os.path.dirname(file_path)\n    os.makedirs(dir_path,exist_ok = True)\n    with open(file_path,\"wb\") as file_obj:\n      dill.dump(obj,file_obj)\n  except Exception as e:\n    raise CustomException(e,sys)\ndef evaluate_model(X_train,y_train,X_test,y_test,models,param):\n  try:",
         "detail": "src.utils",
         "documentation": {}
     },
@@ -20246,7 +20336,7 @@
         "kind": 2,
         "importPath": "src.utils",
         "description": "src.utils",
-        "peekOfCode": "def evaluate_model(X_train,y_train,X_test,y_test,models):\n  try:\n    report = {}\n    for i in range(len(list(models))):\n      model = list(models.values())[i]\n      model.fit(X_train,y_train)\n      y_train_pred = model.predict(X_train)\n      y_test_pred = model.predict(X_test)\n      train_model_score = r2_score(y_train,y_train_pred)\n      test_model_score =  r2_score(y_test,y_test_pred)",
+        "peekOfCode": "def evaluate_model(X_train,y_train,X_test,y_test,models,param):\n  try:\n    report = {}\n    for i in range(len(list(models))):\n      model = list(models.values())[i]\n      para=param[list(models.keys())[i]]\n      gs = GridSearchCV(model,para,cv=3)\n      gs.fit(X_train,y_train)\n      model.set_params(**gs.best_params_)\n      model.fit(X_train,y_train)",
         "detail": "src.utils",
         "documentation": {}
     },
@@ -102283,6 +102373,42 @@
         "description": "venv.Tools.scripts.win_add2path",
         "peekOfCode": "DEFAULT = \"%PATH%\"\ndef modify():\n    pythonpath = os.path.dirname(os.path.normpath(sys.executable))\n    scripts = os.path.join(pythonpath, \"Scripts\")\n    appdata = os.environ[\"APPDATA\"]\n    if hasattr(site, \"USER_SITE\"):\n        usersite = site.USER_SITE.replace(appdata, \"%APPDATA%\")\n        userpath = os.path.dirname(usersite)\n        userscripts = os.path.join(userpath, \"Scripts\")\n    else:",
         "detail": "venv.Tools.scripts.win_add2path",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def index():\n  return render_template('index.html')\n@app.route('/predictdata',methods=['GET','POST'])\ndef predict_datapoint():\n  if request.method=='GET':\n    return render_template('home.html')\n  else:\n    data = data = CustomData(\n    gender=request.form.get('gender'),\n    race_ethnicity=request.form.get('ethnicity'),",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "predict_datapoint",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def predict_datapoint():\n  if request.method=='GET':\n    return render_template('home.html')\n  else:\n    data = data = CustomData(\n    gender=request.form.get('gender'),\n    race_ethnicity=request.form.get('ethnicity'),\n    parental_level_of_education=request.form.get('parental_level_of_education'),\n    lunch=request.form.get('lunch'),\n    test_preparation_course=request.form.get('test_preparation_course'),",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "application = Flask(__name__)\napp = application\n# Route for the home page\n@app.route('/')\ndef index():\n  return render_template('index.html')\n@app.route('/predictdata',methods=['GET','POST'])\ndef predict_datapoint():\n  if request.method=='GET':\n    return render_template('home.html')",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = application\n# Route for the home page\n@app.route('/')\ndef index():\n  return render_template('index.html')\n@app.route('/predictdata',methods=['GET','POST'])\ndef predict_datapoint():\n  if request.method=='GET':\n    return render_template('home.html')\n  else:",
+        "detail": "app",
         "documentation": {}
     },
     {
