@@ -372,7 +372,7 @@
         "documentation": {}
     },
     {
-        "label": "load_object",
+        "label": "load_objects",
         "importPath": "src.utils",
         "description": "src.utils",
         "isExtraImport": true,
@@ -20264,7 +20264,7 @@
         "kind": 6,
         "importPath": "src.pipeline.predict_pipeline",
         "description": "src.pipeline.predict_pipeline",
-        "peekOfCode": "class PredictPipeline:\n  def __init__(self):\n    pass\n  def predict(self,features):\n    try:\n        model_path = 'artifact\\\\model.pkl'\n        preprocessor_path = 'artifact\\\\preprocessor.pkl'\n        model = load_object(file_path = model_path)\n        preprocessor = load_object(file_path = preprocessor)\n        data_scaled = preprocessor.transform(features)",
+        "peekOfCode": "class PredictPipeline:\n  def __init__(self):\n    pass\n  def predict(self,features):\n    try:\n        model_path = 'artifact\\\\model.pkl'\n        preprocessor_path = 'artifact\\\\preprocessor.pkl'\n        model = load_objects(file_path = model_path)\n        preprocessor = load_objects(file_path = preprocessor)\n        data_scaled = preprocessor.transform(features)",
         "detail": "src.pipeline.predict_pipeline",
         "documentation": {}
     },
@@ -20337,6 +20337,15 @@
         "importPath": "src.utils",
         "description": "src.utils",
         "peekOfCode": "def evaluate_model(X_train,y_train,X_test,y_test,models,param):\n  try:\n    report = {}\n    for i in range(len(list(models))):\n      model = list(models.values())[i]\n      para=param[list(models.keys())[i]]\n      gs = GridSearchCV(model,para,cv=3)\n      gs.fit(X_train,y_train)\n      model.set_params(**gs.best_params_)\n      model.fit(X_train,y_train)",
+        "detail": "src.utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_objects",
+        "kind": 2,
+        "importPath": "src.utils",
+        "description": "src.utils",
+        "peekOfCode": "def load_objects(file_path):\n  try:\n    with open(file_path,\"rb\") as file_obj:\n      return dill.load(file_obj)\n  except Exception as e:\n    raise CustomException(e.sys)",
         "detail": "src.utils",
         "documentation": {}
     },

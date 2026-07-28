@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
 from src.exception import CustomException
-from src.utils import load_object
+from src.utils import load_objects
 
 class PredictPipeline:
   def __init__(self):
@@ -11,8 +11,8 @@ class PredictPipeline:
     try:
         model_path = 'artifact\\model.pkl'
         preprocessor_path = 'artifact\\preprocessor.pkl'
-        model = load_object(file_path = model_path)
-        preprocessor = load_object(file_path = preprocessor)
+        model = load_objects(file_path = model_path)
+        preprocessor = load_objects(file_path = preprocessor)
         data_scaled = preprocessor.transform(features)
         preds = model.predict(data_scaled)
         return preds
