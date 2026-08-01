@@ -20264,7 +20264,7 @@
         "kind": 6,
         "importPath": "src.pipeline.predict_pipeline",
         "description": "src.pipeline.predict_pipeline",
-        "peekOfCode": "class PredictPipeline:\n  def __init__(self):\n    pass\n  def predict(self,features):\n    try:\n        model_path = 'artifact\\\\model.pkl'\n        preprocessor_path = 'artifact\\\\preprocessor.pkl'\n        model = load_objects(file_path = model_path)\n        preprocessor = load_objects(file_path = preprocessor)\n        data_scaled = preprocessor.transform(features)",
+        "peekOfCode": "class PredictPipeline:\n  def __init__(self):\n    pass\n  def predict(self,features):\n    try:\n        model_path = 'artifact\\\\model.pkl'\n        preprocessor_path = 'artifact\\\\preprocessor.pkl'\n        model = load_objects(file_path = model_path)\n        preprocessor = load_objects(file_path = preprocessor_path)\n        data_scaled = preprocessor.transform(features)",
         "detail": "src.pipeline.predict_pipeline",
         "documentation": {}
     },
